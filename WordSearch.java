@@ -51,6 +51,10 @@ public class WordSearch{
 
      */
     public boolean addWordHorizontal(String word,int row, int col){
+		if(data[row].length - col >= word.length()) {
+			return true;
+		}
+		return false;
     }
 
 
@@ -67,6 +71,10 @@ public class WordSearch{
 
      */
     public boolean addWordVertical(String word,int row, int col){
+		if(data.length - row >= word.length()) {
+			return true;
+		}
+		return false;
     }
 	
 }
