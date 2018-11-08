@@ -51,6 +51,9 @@ public class WordSearch{
 
      */
     public boolean addWordHorizontal(String word,int row, int col){
+		if(row < 0 || row >= data.length || col < 0 || col >= data[0].length) {
+			return false;
+		}
 		if(data[row].length - col >= word.length()) {
 			return true;
 		}
@@ -71,6 +74,9 @@ public class WordSearch{
 
      */
     public boolean addWordVertical(String word,int row, int col){
+		if(row < 0 || row >= data.length || col < 0 || col >= data[0].length) {
+			return false;
+		}
 		if(data.length - row >= word.length()) {
 			return true;
 		}
@@ -89,6 +95,9 @@ public class WordSearch{
      *or there are overlapping letters that do not match, then false is returned.
      */
     public boolean addWordDiagonal(String word,int row, int col){
+		if(row < 0 || row >= data.length || col < 0 || col >= data[0].length) {
+			return false;
+		}
 		if(addWordVertical(word,row,col) && addWordHorizontal(word,row,col)) {
 			return true;
 		}
