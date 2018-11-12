@@ -70,7 +70,7 @@ public class WordSearch {
      *        OR there are overlapping letters that do not match
      */
 	
-	public boolean addWord(String word,int row, int col, int rowIncrement, int colIncrement){
+	private boolean addWord(String word,int row, int col, int rowIncrement, int colIncrement){
 		if(rowIncrement == 0 && colIncrement == 0) {
 			return false;
 		}
