@@ -70,7 +70,7 @@ public class WordSearch {
      *        OR there are overlapping letters that do not match
      */
 	
-	private boolean addWord(String word,int row, int col, int rowIncrement, int colIncrement){
+	public boolean addWord(String word,int row, int col, int rowIncrement, int colIncrement){
 		if(rowIncrement == 0 && colIncrement == 0) {
 			return false;
 		}
@@ -85,16 +85,16 @@ public class WordSearch {
 		
 		//check if all characters match
 		for(int i = 0;i < word.length();i++) {
-			if(data[row+(i * rowIncrement)][col+(i * colIncrement)] != word.charAt(i)) {
+			if(data[row+(i * rowIncrement)][col+(i * colIncrement)] != word.charAt(i) && data[row+(i * rowIncrement)][col+(i * colIncrement)] != '_') {
 				return false;
 			}
 		}
 		
 		//add the word in
 		for(int i = 0;i < word.length();i++) {
-			data[row+(i * rowIncrement)][col+(i * colIncrement)] = word.charAt(i))
-			return true;
+			data[row+(i * rowIncrement)][col+(i * colIncrement)] = word.charAt(i);
 		}
+		return true;
 		
 		
 		
