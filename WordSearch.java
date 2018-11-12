@@ -5,24 +5,25 @@ public class WordSearch {
 	private char[][]data;
 	private int seed;
 	private Random randgen;
-	private ArrayList<String>wordsToAdd;
-	private ArrayList<String>wordsAdded;
+	private ArrayList<String>wordsToAdd = new ArrayList<String>();
+	private ArrayList<String>wordsAdded = new ArrayList<String>();;
 
 	public WordSearch(int rows, int cols, String fileName) {
 		data = new char[rows][cols];
 		clear();
 		try {
 			File words = new File(fileName);
-			Scanner scan = new Scanner(words);
-			while(scan.hasNext()) {
-				wordsToAdd.add(scan.nextLine());
+			Scanner in = new Scanner(words);
+			while(in.hasNext()) {
+				wordsToAdd.add(in.nextLine());
 			}
 		}
 		catch(FileNotFoundException e) {
 			System.out.println("File not found: " + fileName);
 		}
 	
-		randgen = new Random();
+		seed = (int)System.currentTimeMillis();
+		randgen = new Random(seed);
 	}
 	
 	public WordSearch(int rows, int cols, String fileName, int randSeed) {
@@ -30,9 +31,9 @@ public class WordSearch {
 		clear();
 		try {
 			File words = new File(fileName);
-			Scanner scan = new Scanner(words);
-			while(scan.hasNext()) {
-				wordsToAdd.add(scan.nextLine());
+			Scanner in = new Scanner(words);
+			while(in.hasNext()) {
+				wordsToAdd.add(in.nextLine());
 			}
 		}
 		catch(FileNotFoundException e) {
@@ -50,15 +51,33 @@ public class WordSearch {
 			}
 		}
 	}	
+	
+	
+	
+	
+	
+	public String toString() {
+		String out = "";
+		for(int r = 0;r < data.length;r++) {
+			out += "|";
+			for(int c = 0;c < data[0].length - 1;c++) {
+				out += data[r][c] + " ";
+			}
+			out += data[r][data[0].length - 1];
+			out += "|\n";
+		}
+		out += "Words: ";
+		if(wordsAdded.size() > 0) {
+			for(int i = 0; i < wordsAdded.size() - 1;i++) {
+				out += wordsAdded.get(i) + ", ";
+			}
+			out += wordsAdded.get(wordsAdded.size() - 1);
+		}
+		out += "(seed: " + seed + ")";
+		
+		return out;
+	}
+	
 
 }
 
-
-
-
-
-
-
-
-
-}
