@@ -52,10 +52,50 @@ public class WordSearch {
 		}
 	}	
 	
+/**Attempts to add a given word to the specified position of the WordGrid.
+     *The word is added in the direction rowIncrement,colIncrement 
+
+     *Words must have a corresponding letter to match any letters that it overlaps.
+
+     *
+     *@param word is any text to be added to the word grid.
+     *@param row is the vertical locaiton of where you want the word to start.
+     *@param col is the horizontal location of where you want the word to start.
+
+     *@param rowIncrement is -1,0, or 1 and represents the displacement of each letter in the row direction
+     *@param colIncrement is -1,0, or 1 and represents the displacement of each letter in the col direction
+
+     *@return true when: the word is added successfully. 
+     *        false when: the word doesn't fit, OR  rowchange and colchange are both 0,
+     *        OR there are overlapping letters that do not match
+     */
+	
 	private boolean addWord(String word,int row, int col, int rowIncrement, int colIncrement){
 		if(rowIncrement == 0 && colIncrement == 0) {
 			return false;
 		}
+	
+		//if the word breaks past the boundaries of the array index limits
+		if((row + (rowIncrement * word.length()) - 1) >= data[0].length || (row + (rowIncrement * word.length()) - 1) < 0) {
+			return false;
+		}
+		if((col + (colIncrement * word.length()) - 1) >= data.length || (col + (colIncrement * word.length()) - 1) < 0) {
+			return false;
+		}
+		
+		//check if all characters match
+		for(int i = 0;i < word.length();i++) {
+			if(data[row+(i * rowIncrement)][col+(i * colIncrement)] != word.charAt(i)) {
+				return false;
+			}
+		}
+		
+		//add the word in
+		for(int i = 0;i < word.length();i++) {
+			data[row+(i * rowIncrement)][col+(i * colIncrement)] = word.charAt(i))
+			return true;
+		}
+		
 		
 		
     }
@@ -67,6 +107,7 @@ public class WordSearch {
 	
 	public String toString() {
 		String out = "";
+		//puzzle
 		for(int r = 0;r < data.length;r++) {
 			out += "|";
 			for(int c = 0;c < data[0].length - 1;c++) {
@@ -75,6 +116,8 @@ public class WordSearch {
 			out += data[r][data[0].length - 1];
 			out += "|\n";
 		}
+		
+		//words
 		out += "Words: ";
 		if(wordsAdded.size() > 0) {
 			for(int i = 0; i < wordsAdded.size() - 1;i++) {
