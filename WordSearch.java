@@ -7,7 +7,7 @@ public class WordSearch {
 	private Random randgen;
 	private ArrayList<String>wordsToAdd = new ArrayList<String>();
 	private ArrayList<String>wordsAdded = new ArrayList<String>();;
-
+	
 	public WordSearch(int rows, int cols, String fileName) {
 		data = new char[rows][cols];
 		clear();
@@ -103,18 +103,26 @@ public class WordSearch {
 			int colInc;
 			int r;
 			int c;
+			int size;
 			int tries = 50;
-			while(wordsToAdd.size() != 0) {
-				wordIndex = randgen.nextInt() % wordsToAdd.size();
-				rowInc = randgen.nextInt() % 100;
-
-
-
+			while(wordsToAdd.size() > 0) {
+				size = wordsToAdd.size();
+				wordIndex = Math.abs(randgen.nextInt() % wordsToAdd.size());
+				while(tries > 0 && size == wordsToAdd.size()) {
+					rowInc = (int)Math.round((double)(randgen.nextInt() % 100) / 100);
+					colInc = (int)Math.round((double)(randgen.nextInt() % 100) / 100);
+					r = Math.abs(randgen.nextInt() % data[0].length);
+					c = Math.abs(randgen.nextInt() % data.length);
+					if(addWord(wordsToAdd.get(wordIndex),r,c,rowInc,colInc)) {
+						wordsAdded.add(wordsToAdd.get(wordIndex));
+						wordsToAdd.remove(wordIndex);
+						tries = 50;
+					}
+					else {
+						tries -= 1;
+					}
+				}
 			}
-
-
-
-
 		}
 
 
@@ -147,6 +155,10 @@ public class WordSearch {
 
 		return out;
 	}
+	
+	
+	
+	
 
 
 }
