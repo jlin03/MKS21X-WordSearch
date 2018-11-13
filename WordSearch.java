@@ -97,7 +97,7 @@ public class WordSearch {
 		return true;
     }
 
-		private void addAllWords() {
+		public void addAllWords() {
 			int wordIndex;
 			int rowInc;
 			int colInc;
@@ -105,7 +105,8 @@ public class WordSearch {
 			int c;
 			int size;
 			int tries = 50;
-			while(wordsToAdd.size() > 0) {
+			int wordTries = 50;
+			while(wordsToAdd.size() > 0 && wordTries > 0) {
 				size = wordsToAdd.size();
 				wordIndex = Math.abs(randgen.nextInt() % wordsToAdd.size());
 				while(tries > 0 && size == wordsToAdd.size()) {
@@ -116,12 +117,16 @@ public class WordSearch {
 					if(addWord(wordsToAdd.get(wordIndex),r,c,rowInc,colInc)) {
 						wordsAdded.add(wordsToAdd.get(wordIndex));
 						wordsToAdd.remove(wordIndex);
-						tries = 50;
 					}
 					else {
-						tries -= 1;
+						tries--;
 					}
 				}
+				if(tries == 0) {
+					wordTries--;
+				}
+				tries = 50;
+				
 			}
 		}
 
