@@ -129,6 +129,17 @@ public class WordSearch {
 				tries = 50;
 
 			}
+			if(key == true) {
+				for(int r = 0;r < data[0].length;r++) {
+					for(int c = 0;c < data.length;c++) {
+						if(data[r][c] == '_') {
+							data[r][c] = (randgen.nextInt() % ('z' - 'a')) + 'a';
+						}
+					}
+				}
+
+
+			}
 		}
 
 
