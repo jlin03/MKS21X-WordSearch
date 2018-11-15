@@ -201,7 +201,7 @@ public class WordSearch {
 			}
 	      }
 	      catch(NumberFormatException e) {
-				System.out.println("Invalid Arguments\nSee Example: java WordSearch [rows cols filename [randomSeed [answers]]]");
+				System.out.println("Invalid Arguments\nSee Example: java WordSearch rows cols filename [Seed [answers]]\nrows/cols>0\nfilename must be a valid txt file path\nseed must be from 1-10000 inclusive");
 			}
 	    }
 		if(args.length > 3) {
@@ -220,12 +220,12 @@ public class WordSearch {
 				}
 			}
 			catch(NumberFormatException e) {
-				System.out.println("Invalid Arguments\nSee Example: java WordSearch [rows cols filename [randomSeed [answers]]]");
+				System.out.println("Invalid Arguments\nSee Example: java WordSearch rows cols filename [Seed [answers]]\nrows/cols>0\nfilename must be a valid txt file path\nseed must be from 1-10000 inclusive");
 			}
 		}
 	  }
 	  else {
-	    System.out.println("Not enough arguments.\nSee Example: java WordSearch [rows cols filename [randomSeed [answers]]]");
+	    System.out.println("Not Enough Arguments\nSee Example: java WordSearch rows cols filename [Seed [answers]]\nrows/cols>0\nfilename must be a valid txt file path\nseed must be from 1-10000 inclusive");
 	  }
 	}
 
