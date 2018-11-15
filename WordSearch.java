@@ -153,7 +153,7 @@ public class WordSearch {
 	public void toUpper() {
 		for(int row = 0;row < data.length;row++) {
 			for(int col = 0;col < data[0].length;col++) {
-				if(data[row][col] != '_') {
+				if(data[row][col] != '_' && data[row][col] <= 'z' && data[row][col] >= 'a') {
 					data[row][col] = (char)(data[row][col] - 32);
 				}
 			}
