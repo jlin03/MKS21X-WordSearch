@@ -6,6 +6,7 @@ public class WordSearch {
 	private int seed;
 	private Random randgen;
 	private boolean key = false;
+	public boolean lock = false;
 	private ArrayList<String>wordsToAdd = new ArrayList<String>();
 	private ArrayList<String>wordsAdded = new ArrayList<String>();
 
@@ -21,6 +22,7 @@ public class WordSearch {
 		}
 		catch(FileNotFoundException e) {
 			System.out.println("File not found: " + fileName);
+			lock = true;
 		}
 
 		seed = (int)System.currentTimeMillis();
@@ -39,6 +41,7 @@ public class WordSearch {
 		}
 		catch(FileNotFoundException e) {
 			System.out.println("File not found: " + fileName);
+			lock = true;
 		}
 
 		seed = randSeed;
@@ -71,16 +74,16 @@ public class WordSearch {
      *        OR there are overlapping letters that do not match
      */
 
-	private boolean addWord(String word,int row, int col, int rowIncrement, int colIncrement){
+	public boolean addWord(String word,int row, int col, int rowIncrement, int colIncrement){
 		if(rowIncrement == 0 && colIncrement == 0) {
 			return false;
 		}
 
 		//if the word breaks past the boundaries of the array index limits
-		if((row + (rowIncrement * word.length()) - 1) >= data[0].length || (row + (rowIncrement * word.length()) - 1) < 0) {
+		if((row + (rowIncrement * word.length())) > data.length || (row + (rowIncrement * word.length()) + 1) < 0) {
 			return false;
 		}
-		if((col + (colIncrement * word.length()) - 1) >= data.length || (col + (colIncrement * word.length()) - 1) < 0) {
+		if((col + (colIncrement * word.length())) > data[0].length || (col + (colIncrement * word.length()) + 1) < 0) {
 			return false;
 		}
 
@@ -113,8 +116,8 @@ public class WordSearch {
 				while(tries > 0 && size == wordsToAdd.size()) {
 					rowInc = (int)Math.round((double)(randgen.nextInt() % 100) / 100);
 					colInc = (int)Math.round((double)(randgen.nextInt() % 100) / 100);
-					r = Math.abs(randgen.nextInt() % data[0].length);
-					c = Math.abs(randgen.nextInt() % data.length);
+					r = Math.abs(randgen.nextInt() % data.length);
+					c = Math.abs(randgen.nextInt() % data[0].length);
 					if(addWord(wordsToAdd.get(wordIndex),r,c,rowInc,colInc)) {
 						wordsAdded.add(wordsToAdd.get(wordIndex));
 						wordsToAdd.remove(wordIndex);
@@ -130,8 +133,8 @@ public class WordSearch {
 
 			}
 			if(key == false) {
-				for(int row = 0;row < data[0].length;row++) {
-					for(int col = 0;col < data.length;col++) {
+				for(int row = 0;row < data.length;row++) {
+					for(int col = 0;col < data[0].length;col++) {
 						if(data[row][col] == '_') {
 							data[row][col] = (char)((Math.abs(randgen.nextInt()) % ('z' - 'a')) + 'a');
 						}
@@ -148,8 +151,8 @@ public class WordSearch {
 	}
 	
 	public void toUpper() {
-		for(int row = 0;row < data[0].length;row++) {
-			for(int col = 0;col < data.length;col++) {
+		for(int row = 0;row < data.length;row++) {
+			for(int col = 0;col < data[0].length;col++) {
 				if(data[row][col] != '_') {
 					data[row][col] = (char)(data[row][col] - 32);
 				}
@@ -187,28 +190,38 @@ public class WordSearch {
 	  int inpseed;
 	  if(args.length > 2) {
 	    if(args.length == 3) {
-	      try {
+		  try {
+			if(Integer.parseInt(args[0]) < 1 || Integer.parseInt(args[1]) < 1) {
+					throw new NumberFormatException();
+			}
 	        inpseed = (int)(Math.random() * 10000);
 	        WordSearch w = new WordSearch(Integer.parseInt(args[0]),Integer.parseInt(args[1]),args[2],inpseed);
-					w.addAllWords();
-					System.out.println(w);
+			if(!w.lock) {
+				w.addAllWords();
+				System.out.println(w);
+			}
 	      }
 	      catch(NumberFormatException e) {
-	        System.out.println("Invalid Argument types/nSee Example: java WordSearch [rows cols filename [randomSeed [answers]]]");
-	      }
+				System.out.println("Invalid Arguments/nSee Example: java WordSearch [rows cols filename [randomSeed [answers]]]");
+			}
 	    }
 		if(args.length > 3) {
 			try {
+				if(Integer.parseInt(args[0]) < 1 || Integer.parseInt(args[1]) < 1) {
+					throw new NumberFormatException();
+				}
 				inpseed = Integer.parseInt(args[3]);
 				WordSearch w = new WordSearch(Integer.parseInt(args[0]),Integer.parseInt(args[1]),args[2],inpseed);
 				if(args.length > 4 && args[4].equals("key")) {
 					w.setKey(true);
 				}
-				w.addAllWords();
-				System.out.println(w);
+				if(!w.lock) {
+					w.addAllWords();
+					System.out.println(w);
+				}
 			}
 			catch(NumberFormatException e) {
-				System.out.println("Invalid Argument types/nSee Example: java WordSearch [rows cols filename [randomSeed [answers]]]");
+				System.out.println("Invalid Arguments/nSee Example: java WordSearch [rows cols filename [randomSeed [answers]]]");
 			}
 		}
 	  }
