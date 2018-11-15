@@ -109,7 +109,7 @@ public class WordSearch {
 			int c;
 			int size;
 			int tries = 50;
-			int wordTries = 50;
+			int wordTries = wordsToAdd.size() * 3;
 			while(wordsToAdd.size() > 0 && wordTries > 0) {
 				size = wordsToAdd.size();
 				wordIndex = Math.abs(randgen.nextInt() % wordsToAdd.size());
