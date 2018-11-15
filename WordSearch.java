@@ -5,7 +5,7 @@ public class WordSearch {
 	private char[][]data;
 	private int seed;
 	private Random randgen;
-	private boolean key;
+	private boolean key = false;
 	private ArrayList<String>wordsToAdd = new ArrayList<String>();
 	private ArrayList<String>wordsAdded = new ArrayList<String>();
 
@@ -129,24 +129,33 @@ public class WordSearch {
 				tries = 50;
 
 			}
-			if(key == true) {
-				for(int r = 0;r < data[0].length;r++) {
-					for(int c = 0;c < data.length;c++) {
-						if(data[r][c] == '_') {
-							data[r][c] = (randgen.nextInt() % ('z' - 'a')) + 'a';
+			if(key == false) {
+				for(int row = 0;row < data[0].length;row++) {
+					for(int col = 0;col < data.length;col++) {
+						if(data[row][col] == '_') {
+							data[row][col] = (char)((Math.abs(randgen.nextInt()) % ('z' - 'a')) + 'a');
 						}
 					}
 				}
 
 
 			}
+			toUpper();
 		}
 
-
-
-
-
-
+	public void setKey(boolean x) {
+		key = x;
+	}
+	
+	public void toUpper() {
+		for(int row = 0;row < data[0].length;row++) {
+			for(int col = 0;col < data.length;col++) {
+				if(data[row][col] != '_') {
+					data[row][col] = (char)(data[row][col] - 32);
+				}
+			}
+		}
+	}
 
 	public String toString() {
 		String out = "";
@@ -174,42 +183,34 @@ public class WordSearch {
 	}
 
 
-
 	public static void main(String[] args) {
 	  int inpseed;
-	  key = false;
 	  if(args.length > 2) {
 	    if(args.length == 3) {
-	      if(Number.isInteger(Integer.parseInt(args[0])) && Number.isInteger(Integer.parseInt(args[1]))) {
+	      try {
 	        inpseed = (int)(Math.random() * 10000);
 	        WordSearch w = new WordSearch(Integer.parseInt(args[0]),Integer.parseInt(args[1]),args[2],inpseed);
 					w.addAllWords();
 					System.out.println(w);
 	      }
-	      else {
+	      catch(NumberFormatException e) {
 	        System.out.println("Invalid Argument types/nSee Example: java WordSearch [rows cols filename [randomSeed [answers]]]");
 	      }
 	    }
-			if(args.length > 3) {
-				if(Number.isInteger(Integer.parseInt(args[0])) && Number.isInteger(Integer.parseInt(args[1])) && Number.isInteger(Integer.parseInt(args[3]))) {
-					if(args.length > 4 && args[4].equals("key")) {
-						key = true;
-					}
-					inpseed = Integer.parseInt(args[3]);
-					WordSearch w = new WordSearch(Integer.parseInt(args[0]),Integer.parseInt(args[1]),args[2],inpseed);
-					w.addAllWords();
-					System.out.println(w);
+		if(args.length > 3) {
+			try {
+				inpseed = Integer.parseInt(args[3]);
+				WordSearch w = new WordSearch(Integer.parseInt(args[0]),Integer.parseInt(args[1]),args[2],inpseed);
+				if(args.length > 4 && args[4].equals("key")) {
+					w.setKey(true);
 				}
-				else {
-					System.out.println("Invalid Argument types/nSee Example: java WordSearch [rows cols filename [randomSeed [answers]]]");
-				}
-
-
-
-
+				w.addAllWords();
+				System.out.println(w);
 			}
-
-
+			catch(NumberFormatException e) {
+				System.out.println("Invalid Argument types/nSee Example: java WordSearch [rows cols filename [randomSeed [answers]]]");
+			}
+		}
 	  }
 	  else {
 	    System.out.println("Not enough arguments./nSee Example: java WordSearch [rows cols filename [randomSeed [answers]]]");
@@ -218,10 +219,6 @@ public class WordSearch {
 
 
 	}
-
-
-
-
 
 
 }
