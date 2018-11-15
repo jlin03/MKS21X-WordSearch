@@ -206,7 +206,7 @@ public class WordSearch {
 	    }
 		if(args.length > 3) {
 			try {
-				if(Integer.parseInt(args[0]) < 1 || Integer.parseInt(args[1]) < 1) {
+				if(Integer.parseInt(args[0]) < 1 || Integer.parseInt(args[1]) < 1 || Integer.parseInt(args[3]) > 10000 || Integer.parseInt(args[3]) < 1) {
 					throw new NumberFormatException();
 				}
 				inpseed = Integer.parseInt(args[3]);
