@@ -149,7 +149,7 @@ public class WordSearch {
 	public void setKey(boolean x) {
 		key = x;
 	}
-	
+
 	public void toUpper() {
 		for(int row = 0;row < data.length;row++) {
 			for(int col = 0;col < data[0].length;col++) {
@@ -185,7 +185,6 @@ public class WordSearch {
 		return out;
 	}
 
-
 	public static void main(String[] args) {
 	  int inpseed;
 	  if(args.length > 2) {
@@ -202,7 +201,7 @@ public class WordSearch {
 			}
 	      }
 	      catch(NumberFormatException e) {
-				System.out.println("Invalid Arguments/nSee Example: java WordSearch [rows cols filename [randomSeed [answers]]]");
+				System.out.println("Invalid Arguments\nSee Example: java WordSearch [rows cols filename [randomSeed [answers]]]");
 			}
 	    }
 		if(args.length > 3) {
@@ -221,16 +220,13 @@ public class WordSearch {
 				}
 			}
 			catch(NumberFormatException e) {
-				System.out.println("Invalid Arguments/nSee Example: java WordSearch [rows cols filename [randomSeed [answers]]]");
+				System.out.println("Invalid Arguments\nSee Example: java WordSearch [rows cols filename [randomSeed [answers]]]");
 			}
 		}
 	  }
 	  else {
-	    System.out.println("Not enough arguments./nSee Example: java WordSearch [rows cols filename [randomSeed [answers]]]");
+	    System.out.println("Not enough arguments.\nSee Example: java WordSearch [rows cols filename [randomSeed [answers]]]");
 	  }
-
-
-
 	}
 
 
