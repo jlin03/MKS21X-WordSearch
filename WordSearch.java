@@ -166,9 +166,19 @@ public class WordSearch {
 		for(int r = 0;r < data.length;r++) {
 			out += "|";
 			for(int c = 0;c < data[0].length - 1;c++) {
-				out += data[r][c] + " ";
+				if(data[r][c] == '_') {
+					out += "  ";
+				}
+				else {
+					out += data[r][c] + " ";
+				}
 			}
+			if(data[r][data[0].length - 1] == '_') {
+				out += " ";
+			}
+			else {
 			out += data[r][data[0].length - 1];
+			}
 			out += "|\n";
 		}
 
@@ -180,7 +190,7 @@ public class WordSearch {
 			}
 			out += wordsAdded.get(wordsAdded.size() - 1);
 		}
-		out += "(seed: " + seed + ")";
+		out += " (seed: " + seed + ")";
 
 		return out;
 	}
@@ -206,7 +216,7 @@ public class WordSearch {
 	    }
 		if(args.length > 3) {
 			try {
-				if(Integer.parseInt(args[0]) < 1 || Integer.parseInt(args[1]) < 1 || Integer.parseInt(args[3]) > 10000 || Integer.parseInt(args[3]) < 1) {
+				if(Integer.parseInt(args[0]) < 1 || Integer.parseInt(args[1]) < 1 || Integer.parseInt(args[3]) > 10000 || Integer.parseInt(args[3]) < 0) {
 					throw new NumberFormatException();
 				}
 				inpseed = Integer.parseInt(args[3]);
